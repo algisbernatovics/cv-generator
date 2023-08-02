@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { Row, Col } from "antd";
 import PersonalInfoInputCard from "./PersonalInfoInputCard";
-import PersonalInfoOutputCard from "./PersonalInfoOutputCard";
+import PersonalInfoOutputCard from "./PersonalInfoOutput";
 import WorkExperienceInputCard from "./WorkExperienceInputCard";
-import WorkExperienceOutput from "./WorkExperienceOutputCard";
+import WorkExperienceOutput from "./WorkExperienceOutput";
+
+interface Experience {
+  jobTitle: string;
+  company: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
 
 const CVGenerator: React.FC = () => {
   const [name, setName] = useState("");
@@ -12,10 +20,33 @@ const CVGenerator: React.FC = () => {
   const [objective, setObjective] = useState("");
   const [website, setWebsite] = useState("");
   const [location, setLocation] = useState("");
-  const [experiences, setExperiences] = useState<any[]>([]);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [editExperience, setEditExperience] = useState<Experience | null>(null);
+  const [editExperienceIndex, setEditExperienceIndex] = useState<number | null>(
+    null
+  );
 
-  const handleAddExperience = (experience: any) => {
+  const handleAddExperience = (experience: Experience) => {
     setExperiences([...experiences, experience]);
+  };
+
+  const handleSaveExperience = (index: number, experience: Experience) => {
+    const updatedExperiences = [...experiences];
+    updatedExperiences[index] = experience;
+    setExperiences(updatedExperiences);
+    setEditExperience(null);
+    setEditExperienceIndex(null);
+  };
+
+  const handleEditExperience = (experience: Experience, index: number) => {
+    setEditExperience(experience);
+    setEditExperienceIndex(index);
+  };
+
+  const handleDeleteExperience = (index: number) => {
+    const updatedExperiences = [...experiences];
+    updatedExperiences.splice(index, 1);
+    setExperiences(updatedExperiences);
   };
 
   return (
@@ -39,10 +70,16 @@ const CVGenerator: React.FC = () => {
           />
 
           {/* Work Experience Input Card */}
-          <WorkExperienceInputCard onAddExperience={handleAddExperience} />
+          <WorkExperienceInputCard
+            onAddExperience={handleAddExperience}
+            onSaveExperience={handleSaveExperience}
+            editExperience={editExperience}
+            editExperienceIndex={editExperienceIndex}
+            setEditExperience={setEditExperience} // Pass the setEditExperience prop
+          />
         </Col>
 
-        <Col xs={24} md={12} style={{ background: "white"}}>
+        <Col xs={24} md={12} style={{ background: "white" }}>
           {/* Personal Info Output Card */}
           <PersonalInfoOutputCard
             name={name}
@@ -54,7 +91,11 @@ const CVGenerator: React.FC = () => {
           />
 
           {/* Experience List */}
-          <WorkExperienceOutput experiences={experiences} />
+          <WorkExperienceOutput
+            experiences={experiences}
+            onEditExperience={handleEditExperience}
+            onDeleteExperience={handleDeleteExperience}
+          />
         </Col>
       </Row>
     </div>

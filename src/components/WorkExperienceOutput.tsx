@@ -1,20 +1,24 @@
-import React from "react";
-import { List, Card } from "antd";
+import React, { useState } from "react";
+import { List, Card, Button } from "antd";
 
 interface Experience {
   jobTitle: string;
   company: string;
   startDate: string;
   endDate: string;
-  description: string; // Add description to the Experience interface
+  description: string;
 }
 
 interface WorkExperienceOutputCardProps {
   experiences: Experience[];
+  onEditExperience: (experience: Experience,index:number) => void;
+  onDeleteExperience: (index: number) => void;
 }
 
 const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
   experiences,
+  onEditExperience,
+  onDeleteExperience,
 }) => {
   const cardStyle: React.CSSProperties = {
     padding: "10px",
@@ -39,14 +43,26 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
     color: "#666",
   };
 
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
+
   return (
     <div style={cardStyle}>
       <h2>Work Experience</h2>
       <List
         itemLayout="vertical"
         dataSource={experiences}
-        renderItem={(item) => (
-          <List.Item>
+        renderItem={(item, index) => (
+          <List.Item
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}>
             <List.Item.Meta
               title={<p style={jobTitleStyle}>{item.jobTitle}</p>}
               description={
@@ -59,6 +75,14 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
                 </div>
               }
             />
+            {hoveredIndex === index && (
+              <>
+                <Button onClick={() => onEditExperience(item,index)}>Edit</Button>
+                <Button onClick={() => onDeleteExperience(index)}>
+                  Delete
+                </Button>
+              </>
+            )}
           </List.Item>
         )}
       />

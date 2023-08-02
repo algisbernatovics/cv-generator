@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Input, DatePicker, Button, Form, Row, Col } from "antd";
+import moment from "moment";
 
 interface Experience {
   jobTitle: string;
@@ -11,16 +12,46 @@ interface Experience {
 
 interface WorkExperienceInputCardProps {
   onAddExperience: (experience: Experience) => void;
+  onSaveExperience: (index: number | null, experience: Experience) => void; // Update the onSaveExperience prop
+  editExperience: Experience | null;
+  editExperienceIndex: number | null;
+  setEditExperience: (
+    experience: Experience | null,
+    index: number | null
+  ) => void; // Update the setEditExperience prop
 }
 
 const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
   onAddExperience,
+  onSaveExperience,
+  editExperience,
+  editExperienceIndex,
+  setEditExperience,
 }) => {
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
   const [startDate, setStartDate] = useState<any>(null);
   const [endDate, setEndDate] = useState<any>(null);
   const [description, setDescription] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (editExperience && editExperienceIndex !== null) {
+      setIsEditing(true);
+      setJobTitle(editExperience.jobTitle);
+      setCompany(editExperience.company);
+      setStartDate(moment(editExperience.startDate));
+      setEndDate(moment(editExperience.endDate));
+      setDescription(editExperience.description);
+    } else {
+      setIsEditing(false);
+      setJobTitle("");
+      setCompany("");
+      setStartDate(null);
+      setEndDate(null);
+      setDescription("");
+    }
+  }, [editExperience, editExperienceIndex]);
 
   const handleAddExperience = () => {
     if (jobTitle && company && startDate && endDate) {
@@ -40,9 +71,24 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
     }
   };
 
+  const handleSaveExperience = () => {
+    if (editExperience && editExperienceIndex !== null) {
+      const updatedExperience: Experience = {
+        ...editExperience,
+        jobTitle,
+        company,
+        startDate: startDate.format("YYYY-MM-DD"),
+        endDate: endDate.format("YYYY-MM-DD"),
+        description,
+      };
+      onSaveExperience(editExperienceIndex, updatedExperience);
+      setEditExperience(null, null);
+    }
+  };
+
   return (
     <Card
-      title="Add Work Experience"
+      title={isEditing ? "Edit Work Experience" : "Add Work Experience"}
       style={{ background: "#f0f0f0", padding: "10px", margin: "10px" }}>
       <Form layout="vertical">
         <Form.Item label="Company">
@@ -90,9 +136,21 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
           />
         </Form.Item>
       </Form>
-      <Button type="primary" onClick={handleAddExperience}>
-        Add Work Experience
-      </Button>
+      {isEditing ? (
+        <Button
+          type="primary"
+          onClick={handleSaveExperience}
+          style={{ backgroundColor: "green" }}>
+          Save Experience
+        </Button>
+      ) : (
+        <Button
+          type="primary"
+          onClick={handleAddExperience}
+          style={{ backgroundColor: "blue" }}>
+          Add Work Experience
+        </Button>
+      )}
     </Card>
   );
 };
