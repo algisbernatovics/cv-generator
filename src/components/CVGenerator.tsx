@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Row, Col } from "antd";
 import PersonalInfoInputCard from "./PersonalInfoInputCard";
 import PersonalInfoOutputCard from "./PersonalInfoOutputCard";
+import WorkExperienceInputCard from "./WorkExperienceInputCard";
+import WorkExperienceOutput from "./WorkExperienceOutputCard";
 
 const CVGenerator: React.FC = () => {
   const [name, setName] = useState("");
@@ -10,7 +12,11 @@ const CVGenerator: React.FC = () => {
   const [objective, setObjective] = useState("");
   const [website, setWebsite] = useState("");
   const [location, setLocation] = useState("");
-  const [experiences, setExperiences] = useState([]);
+  const [experiences, setExperiences] = useState<any[]>([]);
+
+  const handleAddExperience = (experience: any) => {
+    setExperiences([...experiences, experience]);
+  };
 
   return (
     <div>
@@ -31,9 +37,12 @@ const CVGenerator: React.FC = () => {
             onChangePhoneNumber={(e) => setPhoneNumber(e.target.value)}
             onChangeLocation={(e) => setLocation(e.target.value)}
           />
+
+          {/* Work Experience Input Card */}
+          <WorkExperienceInputCard onAddExperience={handleAddExperience} />
         </Col>
 
-        <Col xs={24} md={12} style={{ marginBottom: "20px" }}>
+        <Col xs={24} md={12} style={{ background: "white"}}>
           {/* Personal Info Output Card */}
           <PersonalInfoOutputCard
             name={name}
@@ -44,6 +53,8 @@ const CVGenerator: React.FC = () => {
             objective={objective}
           />
 
+          {/* Experience List */}
+          <WorkExperienceOutput experiences={experiences} />
         </Col>
       </Row>
     </div>
