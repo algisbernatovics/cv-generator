@@ -20,7 +20,7 @@ const CVPersonalInf: React.FC<{
   };
 
   const blueLineStyle: React.CSSProperties = {
-    borderBottom: "4px solid #b2d4e3", // Use a lighter blue color for the line at the top
+    borderBottom: "4px solid #337AFF", // Use a lighter blue color for the line at the top
     marginBottom: "10px",
   };
 
