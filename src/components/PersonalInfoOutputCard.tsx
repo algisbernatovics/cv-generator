@@ -5,9 +5,9 @@ import {
   GlobalOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
-import { Row, Col } from "antd";
+import { Row, Col, Card } from "antd";
 
-const CVPreview: React.FC<{
+const CVPersonalInf: React.FC<{
   name: string;
   email: string;
   website: string;
@@ -46,23 +46,23 @@ const CVPreview: React.FC<{
   return (
     <div style={containerStyle}>
       <div style={blueLineStyle}></div> {/* Blue line at the top */}
-      <p style={nameStyle}>
-        {name}
-      </p>
+      <p style={nameStyle}>{name}</p>
       <p>{objective}</p>
       <Row gutter={16} style={infoContainerStyle}>
         <Col>
-          
-          <p style={infoTextStyle}><MailOutlined /> {email}</p>
-        </Col>
-
-        <Col>
-          
-          <p style={infoTextStyle}><PhoneOutlined /> {phoneNumber}</p>
+          <p style={infoTextStyle}>
+            <MailOutlined /> {email}
+          </p>
         </Col>
         <Col>
-          
-          <p style={infoTextStyle}><GlobalOutlined /> {location}</p>
+          <p style={infoTextStyle}>
+            <PhoneOutlined /> {phoneNumber}
+          </p>
+        </Col>
+        <Col>
+          <p style={infoTextStyle}>
+            <GlobalOutlined /> {location}
+          </p>
         </Col>
       </Row>
       <p>Website: {website}</p>
@@ -70,4 +70,31 @@ const CVPreview: React.FC<{
   );
 };
 
-export default CVPreview;
+const PersonalInfoOutputCard = ({
+  name,
+  email,
+  website,
+  phoneNumber,
+  location,
+  objective,
+}) => {
+  return (
+    <Card
+      style={{
+        background: "#f0f0f0",
+        padding: "10px",
+        margin: "10px",
+      }}>
+      <CVPersonalInf
+        name={name}
+        email={email}
+        website={website}
+        phoneNumber={phoneNumber}
+        location={location}
+        objective={objective}
+      />
+    </Card>
+  );
+};
+
+export default PersonalInfoOutputCard;

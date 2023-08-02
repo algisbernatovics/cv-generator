@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import { Layout, Row, Col } from "antd";
-import PersonalInfo from "../components/PersonalInfo";
-import WorkExperience from "@/components/WorkExperiance";
+import CVGenerator from "../components/CVGenerator";
 
 const { Header, Content } = Layout;
 
@@ -26,8 +25,7 @@ const HomePage: React.FC = () => {
           {/* Content is centered within the div */}
           <Col xs={48} md={24} style={{ width: "100%", padding: "0 20px" }}>
             {/* Set the width and add left-right padding */}
-            <PersonalInfo />
-            <WorkExperience/>
+            <CVGenerator />
           </Col>
         </Row>
       </Content>
