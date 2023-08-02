@@ -17,7 +17,6 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
   experiences,
 }) => {
   const cardStyle: React.CSSProperties = {
-    background: "#f0f0f0",
     padding: "10px",
     margin: "10px",
   };
@@ -41,7 +40,7 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
   };
 
   return (
-    <Card style={cardStyle}>
+    <div style={cardStyle}>
       <h2>Work Experience</h2>
       <List
         itemLayout="vertical"
@@ -63,7 +62,7 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
           </List.Item>
         )}
       />
-    </Card>
+    </div>
   );
 };
 

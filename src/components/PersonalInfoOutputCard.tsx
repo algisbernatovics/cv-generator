@@ -79,9 +79,8 @@ const PersonalInfoOutputCard = ({
   objective,
 }) => {
   return (
-    <Card
+    <div
       style={{
-        background: "#f0f0f0",
         padding: "10px",
         margin: "10px",
       }}>
@@ -93,7 +92,7 @@ const PersonalInfoOutputCard = ({
         location={location}
         objective={objective}
       />
-    </Card>
+    </div>
   );
 };
 
