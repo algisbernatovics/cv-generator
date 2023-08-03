@@ -2,7 +2,7 @@
 import React from "react";
 import { Layout, Row, Col } from "antd";
 import CVGenerator from "../components/CVGenerator";
-
+import "./page.css"; // Corrected the import statement for the CSS file
 const { Header, Content } = Layout;
 
 const HomePage: React.FC = () => {

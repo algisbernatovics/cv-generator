@@ -85,6 +85,7 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
       setEditExperience(null, null);
     }
   };
+  // ... (previous code remains the same)
 
   return (
     <Card
@@ -98,17 +99,15 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
             onChange={(e) => setCompany(e.target.value)}
           />
         </Form.Item>
+        <Form.Item label="Job Title">
+          <Input
+            placeholder="Job Title"
+            value={jobTitle}
+            onChange={(e) => setJobTitle(e.target.value)}
+          />
+        </Form.Item>
         <Row gutter={8}>
-          <Col span={16}>
-            <Form.Item label="Job Title">
-              <Input
-                placeholder="Job Title"
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
-              />
-            </Form.Item>
-          </Col>
-          <Col span={4}>
+          <Col span={12}>
             <Form.Item label="Start Date">
               <DatePicker
                 placeholder="Start Date"
@@ -117,7 +116,7 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
               />
             </Form.Item>
           </Col>
-          <Col span={4}>
+          <Col span={12}>
             <Form.Item label="End Date">
               <DatePicker
                 placeholder="End Date"

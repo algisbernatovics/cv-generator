@@ -69,13 +69,12 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
     paddingBottom: "5px", // Add some spacing below the header
   };
 
-const blueLine: React.CSSProperties = {
-  width: "30px", // Adjust the width as per your preference
-  height: "5px",
-  background: "#4e94c1",
-  marginRight: "10px", // Add some spacing between the line and title
-};
-
+  const blueLine: React.CSSProperties = {
+    width: "30px", // Adjust the width as per your preference
+    height: "5px",
+    background: "#4e94c1",
+    marginRight: "10px", // Add some spacing between the line and title
+  };
 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
