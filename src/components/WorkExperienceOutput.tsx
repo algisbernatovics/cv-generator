@@ -85,6 +85,7 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
   const handleMouseLeave = () => {
     setHoveredIndex(null);
   };
+  const hasExperiences = experiences.length > 0;
 
   return (
     <div style={cardStyle}>
@@ -92,42 +93,46 @@ const WorkExperienceOutput: React.FC<WorkExperienceOutputCardProps> = ({
         <span style={blueLine} />
         Work Experience
       </h2>
-      <List
-        itemLayout="vertical"
-        dataSource={experiences}
-        renderItem={(item, index) => (
-          <List.Item
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={handleMouseLeave}
-            style={listItemStyle} // Apply flexbox styling to the item
-          >
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <div style={{ flex: 1 }}>
-                <p style={companyStyle}>{item.company}</p>
-                <p style={jobTitleStyle}>{item.jobTitle}</p>
+      {hasExperiences ? ( // Only render the List if there are experiences
+        <List
+          itemLayout="vertical"
+          dataSource={experiences}
+          renderItem={(item, index) => (
+            <List.Item
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
+              style={listItemStyle}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ flex: 1 }}>
+                  <p style={companyStyle}>{item.company}</p>
+                  <p style={jobTitleStyle}>{item.jobTitle}</p>
+                </div>
+                <p style={dateStyle}>
+                  {item.startDate} - {item.endDate}
+                </p>
               </div>
-              <p style={dateStyle}>
-                {item.startDate} - {item.endDate}
-              </p>
-            </div>
-            <p>{item.description}</p>
-            {hoveredIndex === index && (
-              <div style={buttonContainerStyle}>
-                <Button
-                  style={buttonStyle}
-                  onClick={() => onEditExperience(item, index)}>
-                  Edit
-                </Button>
-                <Button
-                  style={buttonStyle}
-                  onClick={() => onDeleteExperience(index)}>
-                  Delete
-                </Button>
-              </div>
-            )}
-          </List.Item>
-        )}
-      />
+              <p>{item.description}</p>
+              {hoveredIndex === index && (
+                <div style={buttonContainerStyle}>
+                  <Button
+                    style={buttonStyle}
+                    onClick={() => onEditExperience(item, index)}>
+                    Edit
+                  </Button>
+                  <Button
+                    style={buttonStyle}
+                    onClick={() => onDeleteExperience(index)}>
+                    Delete
+                  </Button>
+                </div>
+              )}
+            </List.Item>
+          )}
+        />
+      ) : (
+        // Display a message when there are no experiences
+        <p>No work experiences available.</p>
+      )}
     </div>
   );
 };

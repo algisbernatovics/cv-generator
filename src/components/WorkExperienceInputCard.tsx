@@ -40,8 +40,8 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
       setIsEditing(true);
       setJobTitle(editExperience.jobTitle);
       setCompany(editExperience.company);
-      setStartDate(moment(editExperience.startDate));
-      setEndDate(moment(editExperience.endDate));
+      setStartDate(moment(editExperience.startDate, "YYYY-MM-DD")); // Convert to moment object
+      setEndDate(moment(editExperience.endDate, "YYYY-MM-DD")); // Convert to moment object
       setDescription(editExperience.description);
     } else {
       setIsEditing(false);
@@ -85,7 +85,6 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
       setEditExperience(null, null);
     }
   };
-  // ... (previous code remains the same)
 
   return (
     <Card
@@ -112,7 +111,7 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
               <DatePicker
                 placeholder="Start Date"
                 value={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => setStartDate(date)} // Date parameter is already a moment object
               />
             </Form.Item>
           </Col>
@@ -121,7 +120,7 @@ const WorkExperienceInputCard: React.FC<WorkExperienceInputCardProps> = ({
               <DatePicker
                 placeholder="End Date"
                 value={endDate}
-                onChange={(date) => setEndDate(date)}
+                onChange={(date) => setEndDate(date)} // Date parameter is already a moment object
               />
             </Form.Item>
           </Col>

@@ -53,7 +53,7 @@ const CVGenerator: React.FC = () => {
       style={{
         display: "flex",
         width: "60%",
-        height: "80%",
+        height: "75%",
         margin: "auto",
       }}>
       <div
@@ -61,7 +61,7 @@ const CVGenerator: React.FC = () => {
           flex: 1,
           marginRight: "20px",
           overflowY: "auto", // Enable vertical scrolling
-          height: "100%", // Set a fixed height to the input container
+          height: "95%", // Set a fixed height to the input container
         }}>
         {/* Personal Info Input Card */}
         <PersonalInfoInputCard
